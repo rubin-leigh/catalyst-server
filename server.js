@@ -38,14 +38,15 @@ const app = express();
 //   enablePreflight: true
 // }
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+// app.use(function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//   next();
+// });
 
-// app.use(cors());
-// app.options('*', cors())
+app.use(cors());
+app.options('*', cors());
+app.post(cors());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -65,7 +66,7 @@ app.get('/', (req, res) => {
 
 
 
-app.post('/api/messages', (req, res) => {
+app.post('/api/messages', cors(), (req, res) => {
     //res.setHeader('Access-Control-Allow-Origin', 'http://catalyst-greece.herokuapp.com/');
     res.header('Content-Type', 'application/json');
     const body = req.body.body;
