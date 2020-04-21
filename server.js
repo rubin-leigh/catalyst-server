@@ -20,8 +20,8 @@ const client = require('twilio')(
  
 const app = express();
 app.use(cors({
-  origin: 'http://localhost:3000'
-}))
+  origin: 'http://catalyst-greece.herokuapp.com/'
+}));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(pino);
