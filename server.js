@@ -43,12 +43,14 @@ app.use((req, res, next) => {
   });
 
 app.get('/', (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*');
   res.setHeader('Content-Type', 'application/json');
 });
 
 
 
 app.post('/api/messages', (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*');
     //res.setHeader('Access-Control-Allow-Origin', 'http://catalyst-greece.herokuapp.com/');
     res.header('Content-Type', 'application/json');
     const body = req.body.body;
