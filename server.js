@@ -20,21 +20,21 @@ const client = require('twilio')(
  
 const app = express();
 
-const whitelist = ['http://catalyst-greece.herokuapp.com']
-const corsOptions = {
-  origin: function(origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  }
-}
+// const whitelist = ['http://catalyst-greece.herokuapp.com']
+// const corsOptions = {
+//   origin: function(origin, callback) {
+//     if (whitelist.indexOf(origin) !== -1) {
+//       callback(null, true)
+//     } else {
+//       callback(new Error('Not allowed by CORS'))
+//     }
+//   }
+// }
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(pino);
-app.use(cors(corsOptions));
+app.use(cors());
 
 // app.use((req, res, next) => {
 //     res.header('Access-Control-Allow-Origin', '*');
@@ -47,8 +47,8 @@ app.get('/', (req, res) => {
 
 
 
-app.post('/api/messages', cors(corsOptions), (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', 'http://catalyst-greece.herokuapp.com/');
+app.post('/api/messages', (req, res) => {
+    //res.setHeader('Access-Control-Allow-Origin', 'http://catalyst-greece.herokuapp.com/');
     res.header('Content-Type', 'application/json');
     const body = req.body.body;
     const numbers = req.body.numbers;
