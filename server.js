@@ -67,7 +67,7 @@ app.get('/', (req, res) => {
 
 
 app.post('/api/messages', cors(), (req, res) => {
-    //res.setHeader('Access-Control-Allow-Origin', 'http://catalyst-greece.herokuapp.com/');
+    req.setHeader('Access-Control-Allow-Origin', 'http://catalyst-greece.herokuapp.com/');
     res.header('Content-Type', 'application/json');
     const body = req.body.body;
     const numbers = req.body.numbers;
