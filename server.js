@@ -19,29 +19,17 @@ const client = require('twilio')(
 
  
 const app = express();
-// app.use(cors({
-//   origin: '*'
-// }));
 
-// Add headers
-app.use(function (req, res, next) {
-
-  // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', 'http://catalyst-greece.herokuapp.com/');
-
-  // Request methods you wish to allow
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-  // Request headers you wish to allow
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-  // Set to true if you need the website to include cookies in the requests sent
-  // to the API (e.g. in case you use sessions)
-  res.setHeader('Access-Control-Allow-Credentials', true);
-
-  // Pass to next layer of middleware
-  next();
-});
+const whitelist = ['http://catalyst-greece.herokuapp.com']
+const corsOptions = {
+  origin: function(origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -58,8 +46,7 @@ app.get('/', (req, res) => {
 
 
 
-app.post('/api/messages', cors(), (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', 'http://catalyst-greece.herokuapp.com/');
+app.post('/api/messages', cors(corsOptions), (req, res) => {
     res.header('Content-Type', 'application/json');
     const body = req.body.body;
     const numbers = req.body.numbers;
