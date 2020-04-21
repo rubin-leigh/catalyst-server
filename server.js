@@ -31,15 +31,15 @@ const app = express();
 //   }
 // }
 
-const corsOptions = {
-  origin: ['http://catalyst-greece.herokuapp.com'],
-  allowedHeaders: ["Content-Type", "Authorization", "Access-Control-Allow-Origin", "Access-Control-Allow-Methods", "Access-Control-Request-Headers"],
-  credentials: true,
-  enablePreflight: true
-}
+// const corsOptions = {
+//   origin: ['http://catalyst-greece.herokuapp.com'],
+//   allowedHeaders: ["Content-Type", "Authorization", "Access-Control-Allow-Origin", "Access-Control-Allow-Methods", "Access-Control-Request-Headers"],
+//   credentials: true,
+//   enablePreflight: true
+// }
 
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions))
+app.use(cors());
+// app.options('*', cors(corsOptions))
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
