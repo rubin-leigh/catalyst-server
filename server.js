@@ -31,10 +31,6 @@ const app = express();
 //   }
 // }
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(pino);
-
 const corsOptions = {
   origin: ['http://catalyst-greece.herokuapp.com'],
   allowedHeaders: ["Content-Type", "Authorization", "Access-Control-Allow-Origin", "Access-Control-Allow-Methods", "Access-Control-Request-Headers"],
@@ -44,6 +40,12 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions))
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(pino);
+
+
 
 // app.use((req, res, next) => {
 //     res.header('Access-Control-Allow-Origin', '*');
