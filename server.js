@@ -37,7 +37,7 @@ app.use(pino);
 
 const corsOptions = {
   origin: ['http://catalyst-greece.herokuapp.com'],
-  allowedHeaders: ["Content-Type", "Authorization", "Access-Control-Allow-Methods", "Access-Control-Request-Headers"],
+  allowedHeaders: ["Content-Type", "Authorization", "Access-Control-Allow-Origin", "Access-Control-Allow-Methods", "Access-Control-Request-Headers"],
   credentials: true,
   enablePreflight: true
 }
