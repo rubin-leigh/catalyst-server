@@ -34,6 +34,7 @@ const corsOptions = {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(pino);
+app.use(cors(corsOptions));
 
 // app.use((req, res, next) => {
 //     res.header('Access-Control-Allow-Origin', '*');
