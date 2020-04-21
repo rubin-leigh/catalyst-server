@@ -34,23 +34,30 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(pino);
-app.use(cors());
 
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"); s
-    next();
-  });
+const corsOptions = {
+  origin: ['http://catalyst-greece.herokuapp.com'],
+  allowedHeaders: ["Content-Type", "Authorization", "Access-Control-Allow-Methods", "Access-Control-Request-Headers"],
+  credentials: true,
+  enablePreflight: true
+}
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions))
+
+// app.use((req, res, next) => {
+//     res.header('Access-Control-Allow-Origin', '*');
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"); s
+//     next();
+//   });
 
 app.get('/', (req, res) => {
-  res.header('Access-Control-Allow-Origin', '*');
   res.setHeader('Content-Type', 'application/json');
 });
 
 
 
 app.post('/api/messages', (req, res) => {
-  res.header('Access-Control-Allow-Origin', '*');
     //res.setHeader('Access-Control-Allow-Origin', 'http://catalyst-greece.herokuapp.com/');
     res.header('Content-Type', 'application/json');
     const body = req.body.body;
