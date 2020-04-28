@@ -22,15 +22,21 @@ const app = express();
 
 // const whitelist = ['http://catalyst-greece.herokuapp.com']
 // const corsOptions = {
-//   origin: false
+//   origin: function(origin, callback) {
+//     if (whitelist.indexOf(origin) !== -1) {
+//       callback(null, true)
+//     } else {
+//       callback(new Error('Not allowed by CORS'))
+//     }
+//   }
 // }
 
-const corsOptions = {
-  origin: false, //['http://catalyst-greece.herokuapp.com'],
-  allowedHeaders: ["Content-Type", "Authorization", "Access-Control-Allow-Origin", "Access-Control-Allow-Methods", "Access-Control-Request-Headers"],
-  credentials: true,
-  enablePreflight: true, 
-}
+// const corsOptions = {
+//   origin: ['http://catalyst-greece.herokuapp.com'],
+//   allowedHeaders: ["Content-Type", "Authorization", "Access-Control-Allow-Origin", "Access-Control-Allow-Methods", "Access-Control-Request-Headers"],
+//   credentials: true,
+//   enablePreflight: true
+// }
 
 // app.use(function(req, res, next) {
 //   res.header("Access-Control-Allow-Origin", "*");
@@ -38,8 +44,25 @@ const corsOptions = {
 //   next();
 // });
 
-app.options('*', cors(corsOptions))
-app.post('*', cors(corsOptions));
+app.use(function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+
+    //intercepts OPTIONS method
+    if ('OPTIONS' === req.method) {
+      //respond with 200
+      res.send(200);
+    }
+    else {
+    //move on
+      next();
+    }
+});
+
+// app.use(cors());
+// app.options('*', cors());
+app.post(cors());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -53,14 +76,14 @@ app.use(pino);
 //     next();
 //   });
 
-app.get('/', cors(corsOptions), (req, res) => {
+app.get('/', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
 });
 
 
 
-app.post('/api/messages', cors(corsOptions), (req, res) => {
-    res.header('Access-Control-Allow-Origin', '*');
+app.post('/api/messages', cors(), (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', 'http://catalyst-greece.herokuapp.com/');
     res.header('Content-Type', 'application/json');
     const body = req.body.body;
     const numbers = req.body.numbers;
