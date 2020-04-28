@@ -60,7 +60,6 @@ app.get('/', cors(corsOptions), (req, res) => {
 
 
 app.post('/api/messages', cors(corsOptions), (req, res) => {
-    req.header('Origin')
     res.header('Content-Type', 'application/json');
     const body = req.body.body;
     const numbers = req.body.numbers;
