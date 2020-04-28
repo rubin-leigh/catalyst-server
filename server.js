@@ -67,9 +67,6 @@ app.options("/*", function(req, res, next){
   res.send(200);
 });
 
-app.use(cors());
-app.options('*', cors());
-app.post(cors());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -89,7 +86,7 @@ app.get('/', (req, res) => {
 
 
 
-app.post('/api/messages', cors(), (req, res) => {
+app.post('/api/messages', (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', 'http://catalyst-greece.herokuapp.com/');
     res.header('Content-Type', 'application/json');
     const body = req.body.body;
