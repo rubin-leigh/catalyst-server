@@ -30,7 +30,6 @@ const corsOptions = {
   allowedHeaders: ["Content-Type", "Authorization", "Access-Control-Allow-Origin", "Access-Control-Allow-Methods", "Access-Control-Request-Headers"],
   credentials: true,
   enablePreflight: true, 
-  preflightContinue
 }
 
 // app.use(function(req, res, next) {
