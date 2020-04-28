@@ -29,7 +29,8 @@ const corsOptions = {
   origin: false, //['http://catalyst-greece.herokuapp.com'],
   allowedHeaders: ["Content-Type", "Authorization", "Access-Control-Allow-Origin", "Access-Control-Allow-Methods", "Access-Control-Request-Headers"],
   credentials: true,
-  enablePreflight: true
+  enablePreflight: true, 
+  preflightContinue
 }
 
 // app.use(function(req, res, next) {
@@ -60,6 +61,7 @@ app.get('/', cors(corsOptions), (req, res) => {
 
 
 app.post('/api/messages', cors(corsOptions), (req, res) => {
+    res.header('Access-Control-Allow-Origin', '*');
     res.header('Content-Type', 'application/json');
     const body = req.body.body;
     const numbers = req.body.numbers;
