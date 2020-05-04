@@ -20,30 +20,6 @@ const client = require('twilio')(
  
 const app = express();
 
-// const whitelist = ['http://catalyst-greece.herokuapp.com']
-// const corsOptions = {
-//   origin: function(origin, callback) {
-//     if (whitelist.indexOf(origin) !== -1) {
-//       callback(null, true)
-//     } else {
-//       callback(new Error('Not allowed by CORS'))
-//     }
-//   }
-// }
-
-// const corsOptions = {
-//   origin: ['http://catalyst-greece.herokuapp.com'],
-//   allowedHeaders: ["Content-Type", "Authorization", "Access-Control-Allow-Origin", "Access-Control-Allow-Methods", "Access-Control-Request-Headers"],
-//   credentials: true,
-//   enablePreflight: true
-// }
-
-// app.use(function(req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//   next();
-// });
-
 app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
@@ -60,8 +36,6 @@ app.use(function(req, res, next) {
     }
 });
 
-// app.use(cors());
-// app.options('*', cors());
 app.post(cors());
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -87,6 +61,8 @@ app.post('/api/messages', cors(), (req, res) => {
     res.header('Content-Type', 'application/json');
     const body = req.body.body;
     const numbers = req.body.numbers;
+    console.log("NUMBERS");
+    console.log(numbers);
     const bindings = numbers.map(number => {
       return JSON.stringify({ binding_type: 'sms', address: number });
     });
