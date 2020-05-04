@@ -61,8 +61,8 @@ app.post('/api/messages', cors(), (req, res) => {
     res.header('Content-Type', 'application/json');
     const body = req.body.body;
     const numbers = req.body.numbers;
-    console.log("NUMBERS");
-    console.log(numbers);
+    console.log("BODY");
+    console.log(req.body);
     const bindings = numbers.map(number => {
       return JSON.stringify({ binding_type: 'sms', address: number });
     });
